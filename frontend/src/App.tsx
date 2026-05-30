@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import Gallery from './pages/Gallery';
 import AIChatWidget from './components/AIChatWidget';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,8 +43,20 @@ function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16 md:h-20">
               <div className="flex-shrink-0 flex items-center">
-                <Link to="/" onClick={closeMobileMenu} className="text-lg md:text-2xl font-headline font-bold text-[var(--color-tertiary)] uppercase tracking-wider">
-                  BEAUTY SALON
+                <Link to="/" onClick={closeMobileMenu} className="flex items-center gap-3 group">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[var(--color-tertiary)] to-[var(--color-primary)] flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.4)] group-hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all duration-300">
+                    <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+                    </svg>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg md:text-2xl font-headline font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-tertiary)] to-[var(--color-primary)] uppercase tracking-wider">
+                      Parlours
+                    </span>
+                    <span className="text-[9px] md:text-[10px] font-medium text-[var(--color-secondary)] uppercase tracking-[0.3em] leading-tight mt-0.5">
+                      Beauty Salon
+                    </span>
+                  </div>
                 </Link>
               </div>
               
@@ -105,9 +117,12 @@ function App() {
         </main>
 
         <footer className="bg-black py-8 border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 className="text-xl font-headline font-bold text-[var(--color-tertiary)] mb-4">BEAUTY SALON</h3>
-            <p className="text-sm text-gray-500 uppercase tracking-widest">&copy; {new Date().getFullYear()} Beauty Salon. All rights reserved.</p>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className="text-[var(--color-tertiary)]" size={16} />
+              <h3 className="text-xl font-headline font-bold text-white uppercase tracking-[0.2em]">PARLOURS</h3>
+            </div>
+            <p className="text-sm text-gray-500 uppercase tracking-widest">&copy; {new Date().getFullYear()} Parlours Beauty Salon. All rights reserved.</p>
           </div>
         </footer>
         <AIChatWidget />

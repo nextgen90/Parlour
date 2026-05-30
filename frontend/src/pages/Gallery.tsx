@@ -8,26 +8,16 @@ const GalleryVideoPlayer = ({ videoId }: { videoId: string }) => {
     <div className="w-full h-full bg-black relative group rounded-xl overflow-hidden">
       <ReactPlayer 
         url={`https://www.youtube.com/watch?v=${videoId}`}
-        light={true} // Shows YouTube thumbnail instantly
-        playing={true} 
-        controls={true} // Native controls for volume & pause
+        playing={false}
+        controls={true}
         width="100%"
         height="100%"
         style={{ position: 'absolute', top: 0, left: 0 }}
-        playIcon={
-          <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/30 transition-colors z-10 cursor-pointer">
-            <div className="bg-black/70 backdrop-blur-xl p-5 rounded-full text-white group-hover:text-[var(--color-tertiary)] group-hover:scale-110 transition-all border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
-              <Play size={36} className="ml-1" />
-            </div>
-          </div>
-        }
         config={{
           youtube: {
-            // @ts-ignore
             playerVars: { 
               modestbranding: 1,
               rel: 0,
-              vq: 'hd1080',
               playsinline: 1
             }
           }

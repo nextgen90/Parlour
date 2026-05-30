@@ -9,26 +9,16 @@ const ServiceVideoPlayer = ({ videoId }: { videoId: string }) => {
     <div className="w-full h-full bg-black relative group rounded-xl overflow-hidden">
       <ReactPlayer 
         url={`https://www.youtube.com/watch?v=${videoId}`}
-        light={true} // Shows YouTube thumbnail instantly (fixes black screen)
-        playing={true} // Autoplays when thumbnail is clicked
-        controls={true} // Native controls for volume & pause
+        playing={false}
+        controls={true}
         width="100%"
         height="100%"
         style={{ position: 'absolute', top: 0, left: 0 }}
-        playIcon={
-          <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/30 transition-colors z-10 cursor-pointer">
-            <div className="bg-black/70 backdrop-blur-xl p-5 rounded-full text-white group-hover:text-[var(--color-tertiary)] group-hover:scale-110 transition-all border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
-              <Play size={36} className="ml-1" />
-            </div>
-          </div>
-        }
         config={{
           youtube: {
-            // @ts-ignore
             playerVars: { 
               modestbranding: 1,
               rel: 0,
-              vq: 'hd1080',
               playsinline: 1
             }
           }
@@ -133,21 +123,18 @@ export default function Services() {
                 transition={{ duration: 0.8 }}
                 className="w-full lg:w-1/2 relative group block cursor-pointer"
               >
-                <Link to="/gallery#videos">
-                  <div className="absolute -inset-2 bg-gradient-to-r from-[var(--color-tertiary)] to-[var(--color-primary)] rounded-xl opacity-10 blur-xl group-hover:opacity-20 transition duration-1000"></div>
                 <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl h-[350px] sm:h-[450px]">
                   <ServiceVideoPlayer videoId={service.video} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute inset-0 pointer-events-none"></div>
                   <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none">
                     <span className="text-xs uppercase tracking-widest text-[var(--color-secondary)] bg-black/60 px-4 py-2 backdrop-blur-md border border-white/5 rounded-full flex items-center gap-2">
                       <Clock size={12} /> {service.duration}
                     </span>
-                    <span className="text-sm font-headline font-semibold text-white bg-[var(--color-bg-deep)] border border-[var(--color-tertiary)]/30 px-4 py-2 rounded-full">
+                    <span className="text-sm font-headline font-semibold text-white bg-[var(--color-bg-deep)] border border-[var(--color-tertiary)]/30 px-4 py-2 rounded-full shadow-lg">
                       {service.price}
                     </span>
                   </div>
                 </div>
-                </Link>
               </motion.div>
 
               {/* Detail Content Section */}
