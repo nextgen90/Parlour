@@ -1,50 +1,38 @@
-import { useState } from 'react';
+
 import ReactPlayer from 'react-player';
 import { motion } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Play } from 'lucide-react';
 
 const GalleryVideoPlayer = ({ videoId }: { videoId: string }) => {
-  const [playing, setPlaying] = useState(true);
-  const [muted, setMuted] = useState(true);
-
   return (
-    <div className="relative w-full h-full overflow-hidden group">
-      <div className="absolute inset-0 w-full h-full pointer-events-none scale-[1.35]">
-        <ReactPlayer 
-          url={`https://www.youtube.com/watch?v=${videoId}`}
-          playing={playing}
-          muted={muted}
-          loop={true}
-          width="100%"
-          height="100%"
-          config={{
-            youtube: {
-              // @ts-ignore
-              playerVars: { 
-                showinfo: 0, 
-                controls: 0,
-                modestbranding: 1,
-                rel: 0,
-                vq: 'hd1080'
-              }
+    <div className="w-full h-full bg-black relative group rounded-xl overflow-hidden">
+      <ReactPlayer 
+        url={`https://www.youtube.com/watch?v=${videoId}`}
+        light={true} // Shows YouTube thumbnail instantly
+        playing={true} 
+        controls={true} // Native controls for volume & pause
+        width="100%"
+        height="100%"
+        style={{ position: 'absolute', top: 0, left: 0 }}
+        playIcon={
+          <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/30 transition-colors z-10 cursor-pointer">
+            <div className="bg-black/70 backdrop-blur-xl p-5 rounded-full text-white group-hover:text-[var(--color-tertiary)] group-hover:scale-110 transition-all border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+              <Play size={36} className="ml-1" />
+            </div>
+          </div>
+        }
+        config={{
+          youtube: {
+            // @ts-ignore
+            playerVars: { 
+              modestbranding: 1,
+              rel: 0,
+              vq: 'hd1080',
+              playsinline: 1
             }
-          }}
-        />
-      </div>
-      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 z-10 pointer-events-auto">
-        <button 
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setPlaying(!playing); }}
-          className="p-3 bg-black/60 rounded-full text-white hover:text-[var(--color-tertiary)] hover:bg-black/80 transition-colors backdrop-blur-md"
-        >
-          {playing ? <Pause size={24} /> : <Play size={24} />}
-        </button>
-        <button 
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMuted(!muted); }}
-          className="p-3 bg-black/60 rounded-full text-white hover:text-[var(--color-tertiary)] hover:bg-black/80 transition-colors backdrop-blur-md"
-        >
-          {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-        </button>
-      </div>
+          }
+        }}
+      />
     </div>
   );
 };
