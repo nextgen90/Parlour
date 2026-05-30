@@ -1,39 +1,15 @@
 
-import ReactPlayer from 'react-player';
 import { motion } from 'framer-motion';
 import { Star, CheckCircle, Sparkles, Clock, ShieldCheck, Heart, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const ServiceVideoPlayer = ({ videoId }: { videoId: string }) => {
-  return (
-    <div className="w-full h-full bg-black relative group rounded-xl overflow-hidden">
-      <ReactPlayer 
-        url={`https://www.youtube.com/watch?v=${videoId}`}
-        playing={false}
-        controls={true}
-        width="100%"
-        height="100%"
-        style={{ position: 'absolute', top: 0, left: 0 }}
-        config={{
-          youtube: {
-            playerVars: { 
-              modestbranding: 1,
-              rel: 0,
-              playsinline: 1
-            }
-          }
-        }}
-      />
-    </div>
-  );
-};
 const SERVICES_DETAILED = [
   {
     id: 'hair',
     title: 'Hair Couture & Styling',
     subtitle: 'Haute Coiffure & Couture Coloring',
     price: 'From ₹4,999',
-    video: 'ef6cyfvYmhc',
+    video: 'https://Parlour.b-cdn.net/InShot_20260530_103140385.mp4',
     features: [
       'Custom Couture Haircut & Blowout by senior stylists',
       'French Balayage & Premium Glossing treatments',
@@ -49,7 +25,7 @@ const SERVICES_DETAILED = [
     title: 'Advanced Skin Therapy',
     subtitle: 'Deep Cellular Regeneration Clinic',
     price: 'From ₹5,999',
-    video: 'AZt7ZzEbp5M',
+    video: 'https://Parlour.b-cdn.net/InShot_20260530_104447749.mp4',
     features: [
       'Bespoke chemical & fruit enzyme peels',
       'Double action Hydro-Facial for intensive hydration',
@@ -65,7 +41,7 @@ const SERVICES_DETAILED = [
     title: 'Bridal & Editorial Makeup',
     subtitle: 'Signature High-Definition Artistry',
     price: 'From ₹14,999',
-    video: 'XgQktrFN2dQ',
+    video: 'https://Parlour.b-cdn.net/InShot_20260530_104623096.mp4',
     features: [
       'High-Definition (HD) airbrush makeup for flawless longevity',
       'Premium mink-effect lash integration',
@@ -121,12 +97,28 @@ export default function Services() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="w-full lg:w-1/2 relative group block cursor-pointer"
+                className="w-full lg:w-1/2 relative group block"
               >
-                <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl h-[350px] sm:h-[450px]">
-                  <ServiceVideoPlayer videoId={service.video} />
-                  <div className="absolute inset-0 pointer-events-none"></div>
-                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none">
+                <Link to="/gallery#videos" className="block relative rounded-xl overflow-hidden border border-white/10 shadow-2xl w-full max-w-[340px] mx-auto aspect-[9/16]">
+                  <video 
+                    src={service.video} 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                  
+                  {/* Play Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <div className="bg-black/80 backdrop-blur-md px-5 py-3 rounded-full text-white flex items-center gap-2 border border-white/10 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                      <Play size={18} className="text-[var(--color-tertiary)]" /> 
+                      <span className="text-[10px] uppercase tracking-widest font-bold">Watch Full Video</span>
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none z-10">
                     <span className="text-xs uppercase tracking-widest text-[var(--color-secondary)] bg-black/60 px-4 py-2 backdrop-blur-md border border-white/5 rounded-full flex items-center gap-2">
                       <Clock size={12} /> {service.duration}
                     </span>
@@ -134,7 +126,7 @@ export default function Services() {
                       {service.price}
                     </span>
                   </div>
-                </div>
+                </Link>
               </motion.div>
 
               {/* Detail Content Section */}

@@ -1,31 +1,5 @@
-
-import ReactPlayer from 'react-player';
 import { motion } from 'framer-motion';
-import { Play } from 'lucide-react';
 
-const GalleryVideoPlayer = ({ videoId }: { videoId: string }) => {
-  return (
-    <div className="w-full h-full bg-black relative group rounded-xl overflow-hidden">
-      <ReactPlayer 
-        url={`https://www.youtube.com/watch?v=${videoId}`}
-        playing={false}
-        controls={true}
-        width="100%"
-        height="100%"
-        style={{ position: 'absolute', top: 0, left: 0 }}
-        config={{
-          youtube: {
-            playerVars: { 
-              modestbranding: 1,
-              rel: 0,
-              playsinline: 1
-            }
-          }
-        }}
-      />
-    </div>
-  );
-};
 const IMAGES = [
   { id: 1, src: '/gallery/gallery_interior.png', title: 'Haute Couture Interior', span: 'md:col-span-2 md:row-span-2' },
   { id: 2, src: '/gallery/gallery_makeup.png', title: 'Bridal Artistry', span: 'md:col-span-1 md:row-span-1' },
@@ -87,11 +61,11 @@ export default function Gallery() {
           <div className="w-16 h-[2px] bg-gradient-to-r from-[var(--color-tertiary)] to-transparent mx-auto"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           {[
-            { id: 1, src: 'ef6cyfvYmhc', title: 'Hair Couture & Styling' },
-            { id: 2, src: 'AZt7ZzEbp5M', title: 'Advanced Skin Therapy' },
-            { id: 3, src: 'XgQktrFN2dQ', title: 'Bridal & Editorial Makeup' }
+            { id: 1, src: 'https://Parlour.b-cdn.net/InShot_20260530_103140385.mp4', title: 'Hair Couture & Styling' },
+            { id: 2, src: 'https://Parlour.b-cdn.net/InShot_20260530_104447749.mp4', title: 'Advanced Skin Therapy' },
+            { id: 3, src: 'https://Parlour.b-cdn.net/InShot_20260530_104623096.mp4', title: 'Bridal & Editorial Makeup' }
           ].map((video, idx) => (
             <motion.div
               key={video.id}
@@ -99,10 +73,15 @@ export default function Gallery() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: idx * 0.1 }}
-              className="relative overflow-hidden rounded-xl border border-white/10 shadow-2xl bg-black group h-[400px]"
+              className="relative overflow-hidden rounded-xl border border-white/10 shadow-2xl bg-black group w-full max-w-[320px] aspect-[9/16]"
             >
               <div className="absolute inset-0 w-full h-full">
-                <GalleryVideoPlayer videoId={video.src} />
+                <video 
+                  src={video.src}
+                  controls
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="absolute top-4 left-4 z-20 pointer-events-none">
                 <span className="bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full border border-white/10 shadow-lg">
