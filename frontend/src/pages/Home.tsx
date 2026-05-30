@@ -433,14 +433,14 @@ export default function Home() {
                     />
                   </div>
                 </div>
-                <div>
+                <div className="relative z-20">
                   <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Special Request (Optional)</label>
-                  <input 
-                    type="text" 
+                  <textarea 
                     value={formData.notes}
                     onChange={(e) => setFormData({...formData, notes: e.target.value})}
-                    className="w-full border-b border-white/20 py-3 bg-transparent text-white focus:outline-none focus:border-[var(--color-tertiary)] transition-colors text-sm" 
+                    className="w-full border-b border-white/20 py-3 bg-transparent text-white focus:outline-none focus:border-[var(--color-tertiary)] transition-colors text-sm resize-none" 
                     placeholder="Describe any skin sensitivities, preferred stylist, etc." 
+                    rows={2}
                   />
                 </div>
                 <button 
