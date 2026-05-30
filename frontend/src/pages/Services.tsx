@@ -1,7 +1,54 @@
+import { useState } from 'react';
+import ReactPlayer from 'react-player';
 import { motion } from 'framer-motion';
-import { Star, CheckCircle, Sparkles, Clock, ShieldCheck, Heart } from 'lucide-react';
+import { Star, CheckCircle, Sparkles, Clock, ShieldCheck, Heart, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const ServiceVideoPlayer = ({ videoId }: { videoId: string }) => {
+  const [playing, setPlaying] = useState(true);
+  const [muted, setMuted] = useState(true);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden group">
+      <div className="absolute inset-0 w-full h-full pointer-events-none scale-[1.35]">
+        <ReactPlayer 
+          url={`https://www.youtube.com/watch?v=${videoId}`}
+          playing={playing}
+          muted={muted}
+          loop={true}
+          width="100%"
+          height="100%"
+          config={{
+            youtube: {
+              // @ts-ignore
+              playerVars: { 
+                showinfo: 0, 
+                controls: 0,
+                modestbranding: 1,
+                rel: 0,
+                vq: 'hd1080'
+              }
+            }
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 z-10 pointer-events-auto">
+        <button 
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setPlaying(!playing); }}
+          className="p-3 bg-black/60 rounded-full text-white hover:text-[var(--color-tertiary)] hover:bg-black/80 transition-colors backdrop-blur-md"
+        >
+          {playing ? <Pause size={24} /> : <Play size={24} />}
+        </button>
+        <button 
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMuted(!muted); }}
+          className="p-3 bg-black/60 rounded-full text-white hover:text-[var(--color-tertiary)] hover:bg-black/80 transition-colors backdrop-blur-md"
+        >
+          {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+        </button>
+      </div>
+    </div>
+  );
+};
 const SERVICES_DETAILED = [
   {
     id: 'hair',
@@ -101,14 +148,9 @@ export default function Services() {
                 <Link to="/gallery#videos">
                   <div className="absolute -inset-2 bg-gradient-to-r from-[var(--color-tertiary)] to-[var(--color-primary)] rounded-xl opacity-10 blur-xl group-hover:opacity-20 transition duration-1000"></div>
                 <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl h-[350px] sm:h-[450px]">
-                  <iframe 
-                    src={`https://www.youtube.com/embed/${service.video}?autoplay=1&loop=1&playlist=${service.video}&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1`}
-                    className="absolute inset-0 w-full h-full scale-[1.35] pointer-events-none"
-                    allow="autoplay; encrypted-media"
-                    frameBorder="0"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                  <ServiceVideoPlayer videoId={service.video} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none">
                     <span className="text-xs uppercase tracking-widest text-[var(--color-secondary)] bg-black/60 px-4 py-2 backdrop-blur-md border border-white/5 rounded-full flex items-center gap-2">
                       <Clock size={12} /> {service.duration}
                     </span>

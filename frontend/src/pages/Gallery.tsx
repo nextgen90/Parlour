@@ -1,5 +1,53 @@
+import { useState } from 'react';
+import ReactPlayer from 'react-player';
 import { motion } from 'framer-motion';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
+const GalleryVideoPlayer = ({ videoId }: { videoId: string }) => {
+  const [playing, setPlaying] = useState(true);
+  const [muted, setMuted] = useState(true);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden group">
+      <div className="absolute inset-0 w-full h-full pointer-events-none scale-[1.35]">
+        <ReactPlayer 
+          url={`https://www.youtube.com/watch?v=${videoId}`}
+          playing={playing}
+          muted={muted}
+          loop={true}
+          width="100%"
+          height="100%"
+          config={{
+            youtube: {
+              // @ts-ignore
+              playerVars: { 
+                showinfo: 0, 
+                controls: 0,
+                modestbranding: 1,
+                rel: 0,
+                vq: 'hd1080'
+              }
+            }
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 z-10 pointer-events-auto">
+        <button 
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setPlaying(!playing); }}
+          className="p-3 bg-black/60 rounded-full text-white hover:text-[var(--color-tertiary)] hover:bg-black/80 transition-colors backdrop-blur-md"
+        >
+          {playing ? <Pause size={24} /> : <Play size={24} />}
+        </button>
+        <button 
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMuted(!muted); }}
+          className="p-3 bg-black/60 rounded-full text-white hover:text-[var(--color-tertiary)] hover:bg-black/80 transition-colors backdrop-blur-md"
+        >
+          {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+        </button>
+      </div>
+    </div>
+  );
+};
 const IMAGES = [
   { id: 1, src: '/gallery/gallery_interior.png', title: 'Haute Couture Interior', span: 'md:col-span-2 md:row-span-2' },
   { id: 2, src: '/gallery/gallery_makeup.png', title: 'Bridal Artistry', span: 'md:col-span-1 md:row-span-1' },
@@ -75,13 +123,8 @@ export default function Gallery() {
               transition={{ duration: 0.8, delay: idx * 0.1 }}
               className="relative overflow-hidden rounded-xl border border-white/10 shadow-2xl bg-black group h-[400px]"
             >
-              <div className="absolute inset-0 w-full h-full pointer-events-none">
-                <iframe 
-                  src={`https://www.youtube.com/embed/${video.src}?autoplay=1&loop=1&playlist=${video.src}&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1`}
-                  className="w-full h-full scale-[1.35]"
-                  allow="autoplay; encrypted-media"
-                  frameBorder="0"
-                />
+              <div className="absolute inset-0 w-full h-full">
+                <GalleryVideoPlayer videoId={video.src} />
               </div>
               <div className="absolute top-4 left-4 z-20 pointer-events-none">
                 <span className="bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full border border-white/10 shadow-lg">
