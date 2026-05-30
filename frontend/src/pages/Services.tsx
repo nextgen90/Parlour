@@ -8,7 +8,7 @@ const SERVICES_DETAILED = [
     title: 'Hair Couture & Styling',
     subtitle: 'Haute Coiffure & Couture Coloring',
     price: 'From ₹4,999',
-    video: 'https://drive.google.com/uc?export=download&id=1P-kb_0dDGH5lRIvqPotVoim3B3ojfS9j',
+    video: 'ef6cyfvYmhc',
     features: [
       'Custom Couture Haircut & Blowout by senior stylists',
       'French Balayage & Premium Glossing treatments',
@@ -24,7 +24,7 @@ const SERVICES_DETAILED = [
     title: 'Advanced Skin Therapy',
     subtitle: 'Deep Cellular Regeneration Clinic',
     price: 'From ₹5,999',
-    video: 'https://drive.google.com/uc?export=download&id=1hLZCCd9zvJQEhg04unwlz6sdEQ6RBkHg',
+    video: 'AZt7ZzEbp5M',
     features: [
       'Bespoke chemical & fruit enzyme peels',
       'Double action Hydro-Facial for intensive hydration',
@@ -40,7 +40,7 @@ const SERVICES_DETAILED = [
     title: 'Bridal & Editorial Makeup',
     subtitle: 'Signature High-Definition Artistry',
     price: 'From ₹14,999',
-    video: 'https://drive.google.com/uc?export=download&id=1_GG7p_DR1wa4jOlvlXHR6hMFGE_3dJUS',
+    video: 'XgQktrFN2dQ',
     features: [
       'High-Definition (HD) airbrush makeup for flawless longevity',
       'Premium mink-effect lash integration',
@@ -101,13 +101,11 @@ export default function Services() {
                 <Link to="/gallery#videos">
                   <div className="absolute -inset-2 bg-gradient-to-r from-[var(--color-tertiary)] to-[var(--color-primary)] rounded-xl opacity-10 blur-xl group-hover:opacity-20 transition duration-1000"></div>
                 <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl h-[350px] sm:h-[450px]">
-                  <video 
-                    src={service.video} 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline 
-                    className="w-full h-full object-cover"
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${service.video}?autoplay=1&loop=1&playlist=${service.video}&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1`}
+                    className="absolute inset-0 w-full h-full scale-[1.35] pointer-events-none"
+                    allow="autoplay; encrypted-media"
+                    frameBorder="0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                   <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">

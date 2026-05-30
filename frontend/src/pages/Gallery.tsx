@@ -63,9 +63,9 @@ export default function Gallery() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            { id: 1, src: 'https://drive.google.com/uc?export=download&id=1P-kb_0dDGH5lRIvqPotVoim3B3ojfS9j', title: 'Hair Couture & Styling' },
-            { id: 2, src: 'https://drive.google.com/uc?export=download&id=1hLZCCd9zvJQEhg04unwlz6sdEQ6RBkHg', title: 'Advanced Skin Therapy' },
-            { id: 3, src: 'https://drive.google.com/uc?export=download&id=1_GG7p_DR1wa4jOlvlXHR6hMFGE_3dJUS', title: 'Bridal & Editorial Makeup' }
+            { id: 1, src: 'ef6cyfvYmhc', title: 'Hair Couture & Styling' },
+            { id: 2, src: 'AZt7ZzEbp5M', title: 'Advanced Skin Therapy' },
+            { id: 3, src: 'XgQktrFN2dQ', title: 'Bridal & Editorial Makeup' }
           ].map((video, idx) => (
             <motion.div
               key={video.id}
@@ -75,12 +75,14 @@ export default function Gallery() {
               transition={{ duration: 0.8, delay: idx * 0.1 }}
               className="relative overflow-hidden rounded-xl border border-white/10 shadow-2xl bg-black group h-[400px]"
             >
-              <video 
-                src={video.src} 
-                controls 
-                className="w-full h-full object-cover"
-                poster={`/gallery/gallery_${video.id === 1 ? 'hair' : video.id === 2 ? 'facial' : 'makeup'}.png`}
-              />
+              <div className="absolute inset-0 w-full h-full pointer-events-none">
+                <iframe 
+                  src={`https://www.youtube.com/embed/${video.src}?autoplay=1&loop=1&playlist=${video.src}&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1`}
+                  className="w-full h-full scale-[1.35]"
+                  allow="autoplay; encrypted-media"
+                  frameBorder="0"
+                />
+              </div>
               <div className="absolute top-4 left-4 z-20 pointer-events-none">
                 <span className="bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full border border-white/10 shadow-lg">
                   {video.title}
