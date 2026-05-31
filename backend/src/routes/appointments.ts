@@ -76,4 +76,33 @@ router.get('/user/:userId', async (req, res) => {
   }
 });
 
+// Get all appointments (Admin)
+router.get('/', async (req, res) => {
+  try {
+    const appointments = await prisma.appointment.findMany({
+      orderBy: { appointmentDate: 'desc' },
+      include: { service: true, user: true }
+    });
+    res.json(appointments);
+  } catch (error) {
+    console.error('Fetch all appointments error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update appointment status (Admin)
+router.patch('/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    const appointment = await prisma.appointment.update({
+      where: { id: req.params.id },
+      data: { status }
+    });
+    res.json(appointment);
+  } catch (error) {
+    console.error('Update appointment status error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 export default router;

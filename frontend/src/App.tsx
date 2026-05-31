@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Gallery from './pages/Gallery';
+import Admin from './pages/Admin';
 import AIChatWidget from './components/AIChatWidget';
 import { Menu, X, Sparkles } from 'lucide-react';
 
@@ -113,6 +114,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
 
@@ -122,7 +124,8 @@ function App() {
               <Sparkles className="text-[var(--color-tertiary)]" size={16} />
               <h3 className="text-xl font-headline font-bold text-white uppercase tracking-[0.2em]">PARLOURS</h3>
             </div>
-            <p className="text-sm text-gray-500 uppercase tracking-widest">&copy; {new Date().getFullYear()} Parlours Beauty Salon. All rights reserved.</p>
+            <p className="text-sm text-gray-500 uppercase tracking-widest mb-2">&copy; {new Date().getFullYear()} Parlours Beauty Salon. All rights reserved.</p>
+            <Link to="/admin" className="text-[10px] text-gray-600 hover:text-[var(--color-tertiary)] uppercase tracking-widest transition-colors">Admin Login</Link>
           </div>
         </footer>
         <AIChatWidget />
